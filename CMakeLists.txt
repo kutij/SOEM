@@ -25,19 +25,24 @@ if(WIN32)
 		\$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Lib/x64/Packet.lib>
 		\$<INSTALL_INTERFACE:\$\{_IMPORT_PREFIX\}/lib/wpcap/x64/wpcap.lib>
 		\$<INSTALL_INTERFACE:\$\{_IMPORT_PREFIX\}/lib/wpcap/x64/Packet.lib>)
+    INSTALL(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Lib/x64/ DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/lib/wpcap/x64/ FILES_MATCHING PATTERN "*.lib" PATTERN "*.lib")
   elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-	SET(OS_LIBS Ws2_32.lib Winmm.lib
-		\$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Lib/wpcap.lib>
-		\$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Lib/Packet.lib>
-		\$<INSTALL_INTERFACE:\$\{_IMPORT_PREFIX\}/lib/wpcap/wpcap.lib>
-		\$<INSTALL_INTERFACE:\$\{_IMPORT_PREFIX\}/lib/wpcap/Packet.lib>)
+    SET(OS_LIBS Ws2_32.lib Winmm.lib
+      \$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Lib/wpcap.lib>
+      \$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Lib/Packet.lib>
+      \$<INSTALL_INTERFACE:\$\{_IMPORT_PREFIX\}/lib/wpcap/wpcap.lib>
+      \$<INSTALL_INTERFACE:\$\{_IMPORT_PREFIX\}/lib/wpcap/Packet.lib>)
+    INSTALL(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Lib/ DESTINATION
+        ${CMAKE_INSTALL_PREFIX}/lib/wpcap/ FILES_MATCHING PATTERN "*.lib" PATTERN "*.lib")
   endif()
   
   set(OS_INCLUDE
 		\$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Include>
 		\$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Include/pcap>
-		\$<INSTALL_INTERFACE:include/wpcap/pcap>
-		\$<INSTALL_INTERFACE:include/wpcap>)
+		#\$<INSTALL_INTERFACE:include/wpcap/pcap>
+		#\$<INSTALL_INTERFACE:include/wpcap>
+    )
 	
   install(DIRECTORY "${CMAKE_SOURCE_DIR}/oshw/win32/wpcap/Include/" # source directory
 	DESTINATION "include/wpcap" # target directory
@@ -105,7 +110,6 @@ set_target_properties(soem PROPERTIES
 			RELWITHDEBINFO_POSTFIX "${ADD_INFO}-relwithdebinfo"
 			MINSIZEREL_POSTFIX "${ADD_INFO}-minsizerel"
 			DEBUG_POSTFIX "${ADD_INFO}-debug")
-			
 target_link_libraries(soem ${OS_LIBS})
 
 target_include_directories(soem PUBLIC
