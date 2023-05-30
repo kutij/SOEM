@@ -40,8 +40,8 @@ if(WIN32)
   set(OS_INCLUDE
 		\$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Include>
 		\$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/oshw/win32/wpcap/Include/pcap>
-		#\$<INSTALL_INTERFACE:include/wpcap/pcap>
-		#\$<INSTALL_INTERFACE:include/wpcap>
+		\$<INSTALL_INTERFACE:include/wpcap/pcap>
+		\$<INSTALL_INTERFACE:include/wpcap>
     )
 	
   install(DIRECTORY "${CMAKE_SOURCE_DIR}/oshw/win32/wpcap/Include/" # source directory
